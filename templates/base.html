@@ -1,0 +1,29 @@
+<head>
+	<meta charset=”UTF-8”>
+	<meta name=”viewport” content=”width=device-width, initial-scale=1.0”>
+	<title>Sally Chemtai| Portfolio</title>
+	<script src="scripts.js"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<header>
+    <div class ="navigation">
+        <h1>Sally</h1>
+         <ul>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('resume') }}">Resume</a></li>
+            <li><a href="{{ url_for('services') }}">Services</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+    </div>
+</header>
+
+
+<body>
+    {%block body%}
+    
+    {%endblock%}
+</body>
+    <footer>
+		<p>&copy; 2025 Sally Chemtai. All rights reserved.</p>
+	</footer>
+</html>
