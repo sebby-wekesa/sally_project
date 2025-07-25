@@ -6,5 +6,65 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 {% block body %}
-    <p>the services that we offer</p>
+<section id="services" class="services">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Services</h2>
+        <p>My Services</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-code"></i></div>
+            <h4><a href="">software development</a></h4>
+            <p>we provide service like software and web development</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bxl-git"></i></div>
+            <h4><a href="">git collaboration</a></h4>
+            <p>Software version control using git and github services</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bxl-python"></i></div>
+            <h4><a href="">python services</a></h4>
+            <p>I deal with core python, machine learning and data science with python programming language </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bxl-java"></i></div>
+            <h4><a href="">Java programming language</a></h4>
+            <p>I deal with overall java software development services</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-network-chart"></i></div>
+            <h4><a href="">Networking</a></h4>
+            <p>troubleshooting and administration of network and network hubs</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bxl-javascript"></i></div>
+            <h4><a href="">web development</a></h4>
+            <p>web development with javascript, HTML and CSS using framework such as django, flask, angular and node.js</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
 {% endblock %}

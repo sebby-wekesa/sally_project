@@ -1,42 +1,45 @@
-{% extends "base.html" %}
-
-{% block heading %}
-	homepage
-{% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% extends "base.html" %} {% block heading %} homepage {% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 {% block body %}
-	
-	<section id=”about”>
-		<h3>Hello, it's me</h3>
-		<h2>Sally Chemtai</h2>
-		<h4>And I'm a virtual assistance, real estate officer and Accountant</h4>
-		<p> I'm are a versatile professional with extensive experience as a virtual</p>
-		<p>assistant, real estate officer, accountant, and bookkeeper.</p>
-		<p>with diverse skill set and expertise in these fields enable me to</p>
-		<p>provide comprehensive support and services, ensuring efficient</p>
-		<p>operations and excellent client satisfaction.</p>
-	</section>
-	<div class="social-icons">
-		<a href="https://www.facebook.com/yourprofile" target="_blank">
-			<img src="{{ url_for('static', filename='images/icons8-facebook-48.png') }}" alt="Facebook">
-		</a>
-		<a href="https://twitter.com/yourprofile" target="_blank">
-			<img src="{{ url_for('static', filename='images/icons8-twitterx-48.png') }}" alt="Twitter">
-		</a>
-		<a href="https://www.linkedin.com/in/yourprofile" target="_blank">
-			<img src="{{ url_for('static', filename='images/icons8-linkedin-circled.png') }}" alt="LinkedIn">
-		</a>
-		<a href="https://www.instagram.com/yourprofile" target="_blank">
-			<img src="{{ url_for('static', filename='images/icons8-instagram.gif') }}" alt="Instagram">
-		</a>
-	</div>
-	<section id=”projects”>
-		<h2>Projects</h2>
-		<div class=”project”>
-			<h3>Project Title</h3>
-			<p>Description of the project.</p>
-		</div>
-		<!—Add more projects as needed → </section>
-			<section id=”contact”>
 
+<section id="”about”">
+  <h2>
+    I'm a passionate
+    <span>virtual assistance and real estate officer</span> from Nairobi, Kenya
+  </h2>
+  <h4>And I'm a virtual assistance, real estate officer and Accountant</h4>
+  <p>I'm are a versatile professional with extensive experience as a virtual</p>
+  <p>assistant, real estate officer, accountant, and bookkeeper.</p>
+  <p>with diverse skill set and expertise in these fields enable me to</p>
+  <p>provide comprehensive support and services, ensuring efficient</p>
+  <p>operations and excellent client satisfaction.</p>
+</section>
+<header id="header">
+  <div class="container">
+    <div class="social-links">
+      <a href="https://twitter.com/Sebby_wekesa" class="twitter"
+        ><i class="bi bi-twitter"></i
+      ></a>
+      <a href="https://github.com/sebby-wekesa" class="github"
+        ><i class="bi bi-github"></i
+      ></a>
+      <a href="https://www.instagram.com/iam_s.e.b.b.y/#" class="instagram"
+        ><i class="bi bi-instagram"></i
+      ></a>
+      <a
+        href="https://www.linkedin.com/in/sebby-wekesa-1532781a0"
+        class="linkedin"
+        ><i class="bi bi-linkedin"></i
+      ></a>
+    </div>
+  </div>
+</header>
+<section id="”projects”">
+  <h2>Projects</h2>
+  <div class="”project”">
+    <h3>Project Title</h3>
+    <p>Description of the project.</p>
+  </div>
+  <!—Add more projects as needed → >
+</section>
 {% endblock %}

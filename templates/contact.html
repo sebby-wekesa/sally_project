@@ -1,20 +1,170 @@
-{% extends "base.html"%}
+{% extends "base.html" %} {% block heading %} Contact {% endblock %} {% block
+styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+{% endblock %} {% block body %}
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>Contact</h2>
+      <p>Get in Touch</p>
+    </div>
 
-{% block heading %}
-    contact
-{% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-{% block body %}
-    <section id=”contact”>
-        <h2>Contact</h2>
-        <form method=”post” action="{{ url_for('contact') }}">
-            <label for=”name”>Name:</label>
-            <input type=”text” id=”name” name=”name”>
-            <label for=”email”>Email:</label>
-            <input type=”email” id=”email” name=”email”>
-            <label for=”message”>Message:</label>
-            <textarea id=”message” name=”message”></textarea>
-            <button type=”submit”>Send</button>
-        </form>
-    </section>
+    <div class="row mt-2">
+      <div class="col-md-6 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="bx bx-map"></i>
+          <h3>My Address</h3>
+          <p>Nairobi, Kenya, 01000</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="bx bx-share-alt"></i>
+          <h3>Social Profiles</h3>
+          <div class="social-links">
+            <a
+              href="https://twitter.com/Sebby_wekesa"
+              class="twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bi bi-twitter"></i
+            ></a>
+            <a
+              href="https://github.com/sebby-wekesa"
+              class="github"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/iam_s.e.b.b.y/#"
+              class="instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bi bi-instagram"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/sebby-wekesa-1532781a0"
+              class="linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mt-4 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="bx bx-envelope"></i>
+          <h3>Email Me</h3>
+          <p>sebbywakis@gmail.com</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="bx bx-phone-call"></i>
+          <h3>Call Me</h3>
+          <p>+254 79729 4574</p>
+        </div>
+      </div>
+    </div>
+
+    <form
+      method="POST"
+      action="{{ url_for('contact') }}"
+      class="mt-4"
+      novalidate
+    >
+      {{ form.hidden_tag() }}
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          {{ form.name.label(class="form-label") }} {{
+          form.name(class="form-control" + (" is-invalid" if form.name.errors
+          else ""), placeholder="Your Name") }} {% for error in form.name.errors
+          %}
+          <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+        <div class="col-md-6 form-group mt-3 mt-md-0">
+          {{ form.email.label(class="form-label") }} {{
+          form.email(class="form-control" + (" is-invalid" if form.email.errors
+          else ""), placeholder="Your Email") }} {% for error in
+          form.email.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-group mt-3">
+        {{ form.subject.label(class="form-label") }} {{
+        form.subject(class="form-control" + (" is-invalid" if
+        form.subject.errors else ""), placeholder="Subject") }} {% for error in
+        form.subject.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mt-3">
+        {{ form.message.label(class="form-label") }} {{
+        form.message(class="form-control" + (" is-invalid" if
+        form.message.errors else ""), rows="5", placeholder="Your Message") }}
+        {% for error in form.message.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="my-3">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div
+          class="alert alert-{{ category }} alert-dismissible fade show"
+          role="alert"
+        >
+          {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<script>
+  // Add client-side validation enhancement
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    if (form) {
+      form.addEventListener("submit", function (event) {
+        let isValid = true;
+
+        // Validate all required fields
+        form.querySelectorAll("[required]").forEach((field) => {
+          if (!field.value.trim()) {
+            field.classList.add("is-invalid");
+            isValid = false;
+          }
+        });
+
+        if (!isValid) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      });
+    }
+  });
+</script>
 {% endblock %}
