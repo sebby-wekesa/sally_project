@@ -1,7 +1,14 @@
-{% extends "base.html" %} {% block heading %} Contact {% endblock %} {% block
-styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-{% endblock %} {% block body %}
+{% extends "base.html" %}
+
+{% block heading %}
+   Contact 
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+{% endblock %} 
+
+{% block body %}
 <section id="contact" class="contact">
   <div class="container">
     <div class="section-title">
@@ -59,14 +66,14 @@ styles %}
         <div class="info-box">
           <i class="bx bx-envelope"></i>
           <h3>Email Me</h3>
-          <p>sebbywakis@gmail.com</p>
+          <p>sally_65@gmail.com</p>
         </div>
       </div>
       <div class="col-md-6 mt-4 d-flex align-items-stretch">
         <div class="info-box">
           <i class="bx bx-phone-call"></i>
           <h3>Call Me</h3>
-          <p>+254 79729 4574</p>
+          <p>+254 7125 07368</p>
         </div>
       </div>
     </div>
@@ -89,10 +96,12 @@ styles %}
           {% endfor %}
         </div>
         <div class="col-md-6 form-group mt-3 mt-md-0">
-          {{ form.email.label(class="form-label") }} {{
-          form.email(class="form-control" + (" is-invalid" if form.email.errors
-          else ""), placeholder="Your Email") }} {% for error in
-          form.email.errors %}
+          {{ form.email.label(class="form-label") }} 
+          
+          {{form.email(class="form-control" + (" is-invalid" if form.email.errors
+          else ""), placeholder="Your Email") }}
+          
+           {% for error in form.email.errors %}
           <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>

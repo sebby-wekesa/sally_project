@@ -1,21 +1,19 @@
 {% extends "base.html" %} {% block heading %} homepage {% endblock %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 {% block body %}
-
-<section id="”about”">
-  <h2>
-    I'm a passionate
-    <span>virtual assistance and real estate officer</span> from Nairobi, Kenya
-  </h2>
-  <h4>And I'm a virtual assistance, real estate officer and Accountant</h4>
-  <p>I'm are a versatile professional with extensive experience as a virtual</p>
-  <p>assistant, real estate officer, accountant, and bookkeeper.</p>
-  <p>with diverse skill set and expertise in these fields enable me to</p>
-  <p>provide comprehensive support and services, ensuring efficient</p>
-  <p>operations and excellent client satisfaction.</p>
-</section>
 <header id="header">
   <div class="container">
+    <h2>
+      I'm a passionate
+      <b><span>virtual assistance and real estate officer</span></b> from
+      Nairobi, Kenya
+    </h2>
+    <p>
+      <h5>
+      I'm are a versatile professional with extensive experience as a virtual
+      assistant, real estate officer, accountant, and bookkeeper.
+      </h5>
+    </p>
     <div class="social-links">
       <a href="https://twitter.com/Sebby_wekesa" class="twitter"
         ><i class="bi bi-twitter"></i
@@ -34,12 +32,4 @@
     </div>
   </div>
 </header>
-<section id="”projects”">
-  <h2>Projects</h2>
-  <div class="”project”">
-    <h3>Project Title</h3>
-    <p>Description of the project.</p>
-  </div>
-  <!—Add more projects as needed → >
-</section>
 {% endblock %}
