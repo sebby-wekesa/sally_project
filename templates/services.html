@@ -1,4 +1,31 @@
 {% extends "base.html"%} {% block heading %} Services {% endblock %}
+
+{% block header %}
+  <header id="header">
+    <div class="container">
+      <h1><a href="{{ url_for('home') }}">Sally Chemtai</a></h1>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li>
+            <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
+          </li>
+          <li><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+          <li><a class="nav-link" href="{{ url_for('resume') }}">Resume</a></li>
+          <li>
+            <a class="nav-link" href="{{ url_for('services') }}">Services</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+          </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+    </div>
+  </header>
+{% endblock %}
+
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 
 {% block body %}
