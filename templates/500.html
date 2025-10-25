@@ -1,0 +1,388 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - Sally Chemtai{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    /* Error Page Styles */
+    .error-section {
+      padding: 100px 0;
+      text-align: center;
+      background: #fff;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .error-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .error-number {
+      font-size: 120px;
+      font-weight: 700;
+      color: #e74c3c;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .error-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #45505b;
+      margin-bottom: 20px;
+    }
+
+    .error-message {
+      font-size: 18px;
+      color: #6c757d;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .error-details {
+      background: #f8f9fa;
+      border-left: 4px solid #e74c3c;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: left;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .error-details h4 {
+      color: #e74c3c;
+      margin-bottom: 10px;
+    }
+
+    .error-details p {
+      margin-bottom: 0;
+      color: #6c757d;
+    }
+
+    .error-image {
+      max-width: 300px;
+      margin: 40px auto;
+    }
+
+    .error-image img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+    }
+
+    .btn-home {
+      background: #0563bb;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .btn-home:hover {
+      background: #0678e3;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-contact {
+      background: transparent;
+      color: #0563bb;
+      border: 2px solid #0563bb;
+      padding: 10px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .btn-contact:hover {
+      background: #0563bb;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-reload {
+      background: #28a745;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: 0.3s;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-reload:hover {
+      background: #34ce57;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Status Indicator */
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #e53e3e;
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* Troubleshooting Steps */
+    .troubleshooting {
+      background: #f0f7ff;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .troubleshooting h4 {
+      color: #0563bb;
+      margin-bottom: 15px;
+    }
+
+    .troubleshooting ol {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .troubleshooting li {
+      margin-bottom: 8px;
+      color: #45505b;
+    }
+
+    /* Animation */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    .shaking {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .error-number {
+        font-size: 80px;
+      }
+      
+      .error-title {
+        font-size: 24px;
+      }
+      
+      .error-message {
+        font-size: 16px;
+      }
+      
+      .btn-home, .btn-contact, .btn-reload {
+        display: block;
+        margin: 10px auto;
+        max-width: 200px;
+      }
+
+      .troubleshooting {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<!-- ======= Error Section ======= -->
+<section id="error" class="error-section">
+  <div class="container">
+    <div class="error-content">
+      <!-- Status Indicator -->
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span style="color: #e53e3e; font-weight: 500;">Server Issue Detected</span>
+      </div>
+
+      <!-- Error Number -->
+      <div class="error-number shaking">500</div>
+      
+      <!-- Error Title -->
+      <h1 class="error-title">Internal Server Error</h1>
+      
+      <!-- Error Message -->
+      <p class="error-message">
+        Something went wrong on our server. We've been notified about the issue and are working to fix it. 
+        Please try again in a few moments.
+      </p>
+
+      <!-- Error Details -->
+      <div class="error-details">
+        <h4>What happened?</h4>
+        <p>
+          Our server encountered an unexpected condition that prevented it from fulfilling your request. 
+          This is usually temporary, and our technical team has been automatically notified.
+        </p>
+      </div>
+
+      <!-- SVG Illustration -->
+      <div class="error-image">
+        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Server Rack -->
+          <rect x="100" y="50" width="100" height="120" rx="5" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2"/>
+          
+          <!-- Server Lights -->
+          <circle cx="120" cy="70" r="3" fill="#e74c3c"/>
+          <circle cx="120" cy="85" r="3" fill="#e74c3c"/>
+          <circle cx="120" cy="100" r="3" fill="#e74c3c"/>
+          <circle cx="120" cy="115" r="3" fill="#e74c3c"/>
+          <circle cx="120" cy="130" r="3" fill="#e74c3c"/>
+          <circle cx="120" cy="145" r="3" fill="#e74c3c"/>
+          
+          <!-- Error Symbol -->
+          <circle cx="180" cy="100" r="25" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2"/>
+          <path d="M170 90L190 110M190 90L170 110" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+          
+          <!-- Signal Waves -->
+          <path d="M80 100C80 100 85 90 100 90C115 90 120 100 120 100" stroke="#0563bb" stroke-width="2" fill="none"/>
+          <path d="M80 100C80 100 85 80 100 80C115 80 120 100 120 100" stroke="#0563bb" stroke-width="2" fill="none" opacity="0.7"/>
+          <path d="M80 100C80 100 85 70 100 70C115 70 120 100 120 100" stroke="#0563bb" stroke-width="2" fill="none" opacity="0.4"/>
+        </svg>
+      </div>
+
+      <!-- Troubleshooting Steps -->
+      <div class="troubleshooting">
+        <h4>While we fix this, you can try:</h4>
+        <ol>
+          <li>Refreshing the page in a few moments</li>
+          <li>Clearing your browser cache and cookies</li>
+          <li>Checking your internet connection</li>
+          <li>Returning to the homepage and trying again</li>
+        </ol>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <button onclick="window.location.reload()" class="btn-reload">
+          <i class="bi bi-arrow-clockwise me-2"></i>Try Again
+        </button>
+        <a href="{{ url_for('home') }}" class="btn-home">
+          <i class="bi bi-house-fill me-2"></i>Go Back Home
+        </a>
+        <a href="{{ url_for('contact') }}" class="btn-contact">
+          <i class="bi bi-envelope-fill me-2"></i>Contact Support
+        </a>
+      </div>
+
+      <!-- Technical Info (Optional - for debugging) -->
+      <div class="technical-info mt-4" style="font-size: 12px; color: #a0a0a0;">
+        <p>Error Code: 500 | Timestamp: <span id="timestamp"></span></p>
+        <p>If the problem persists, please contact us with the error code and timestamp above.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Error Section -->
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set current timestamp
+    const now = new Date();
+    document.getElementById('timestamp').textContent = now.toLocaleString();
+    
+    // Add retry functionality with exponential backoff
+    let retryCount = 0;
+    const maxRetries = 3;
+    
+    function attemptRetry() {
+      if (retryCount < maxRetries) {
+        retryCount++;
+        const delay = Math.min(1000 * Math.pow(2, retryCount), 30000); // Exponential backoff max 30s
+        
+        // Show retry status
+        const retryBtn = document.querySelector('.btn-reload');
+        const originalText = retryBtn.innerHTML;
+        retryBtn.innerHTML = `<i class="bi bi-hourglass-split me-2"></i>Retrying... (${retryCount}/${maxRetries})`;
+        retryBtn.disabled = true;
+        
+        setTimeout(() => {
+          window.location.reload();
+        }, delay);
+      }
+    }
+    
+    // Auto-retry after 10 seconds
+    setTimeout(attemptRetry, 10000);
+    
+    // Manual retry button
+    const retryBtn = document.querySelector('.btn-reload');
+    if (retryBtn) {
+      retryBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        attemptRetry();
+      });
+    }
+    
+    // Add some interactive elements
+    const errorNumber = document.querySelector('.error-number');
+    if (errorNumber) {
+      errorNumber.addEventListener('click', function() {
+        this.classList.add('shaking');
+        setTimeout(() => {
+          this.classList.remove('shaking');
+        }, 500);
+      });
+    }
+    
+    // Check if the server might be back online
+    function checkServerStatus() {
+      fetch(window.location.href, { method: 'HEAD' })
+        .then(response => {
+          if (response.ok) {
+            // Server is responding, suggest refresh
+            const statusIndicator = document.querySelector('.status-indicator');
+            if (statusIndicator) {
+              statusIndicator.innerHTML = `
+                <span class="status-dot" style="background: #28a745;"></span>
+                <span style="color: #28a745; font-weight: 500;">Server is responding! Try refreshing.</span>
+              `;
+            }
+          }
+        })
+        .catch(() => {
+          // Server still down, continue showing error state
+        });
+    }
+    
+    // Check server status every 30 seconds
+    setInterval(checkServerStatus, 30000);
+  });
+</script>
+{% endblock %}

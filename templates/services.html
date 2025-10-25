@@ -1,66 +1,126 @@
-{% extends "base.html"%} {% block heading %} Services {% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+{% extends "base.html" %}
+
+{% block title %}Services - Sally Chemtai{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <!-- Additional services-specific styles -->
+{% endblock %}
 
 {% block body %}
+<!-- ======= Services Section ======= -->
 <section id="services" class="services">
   <div class="container">
     <div class="section-title">
       <h2>Services</h2>
-      <p>My Services</p>
+      <p>My Professional Services</p>
     </div>
 
     <div class="row">
+      <!-- Virtual Assistance Services -->
       <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
         <div class="icon-box">
-          <div class="icon"><i class="bx bx-code"></i></div>
-          <h4><a href="">Virtual Assistance </a></h4>
-          <p>we provide service like software and web development</p>
+          <div class="icon"><i class="bi bi-laptop"></i></div>
+          <h4><a href="">Virtual Assistance</a></h4>
+          <p>Comprehensive administrative support including email management, scheduling, data entry, and customer service to help streamline your business operations.</p>
+          <ul class="service-features">
+            <li>Email & Calendar Management</li>
+            <li>Data Entry & Organization</li>
+            <li>Customer Support</li>
+            <li>Document Preparation</li>
+            <li>Social Media Management</li>
+          </ul>
         </div>
       </div>
 
+      <!-- Real Estate Services -->
       <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
         <div class="icon-box">
-          <div class="icon"><i class="bx bxl-git"></i></div>
-          <h4><a href="">Real Estate agent</a></h4>
-          <p>Software version control using git and github services</p>
+          <div class="icon"><i class="bi bi-house-door"></i></div>
+          <h4><a href="">Real Estate Services</a></h4>
+          <p>Professional real estate services including property management, sales, rentals, and real estate consultancy.</p>
+          <ul class="service-features">
+            <li>Property Listings & Marketing</li>
+            <li>Tenant & Buyer Screening</li>
+            <li>Property Viewings Coordination</li>
+            <li>Rental & Sales Agreements</li>
+            <li>Property Management</li>
+          </ul>
         </div>
       </div>
 
+      <!-- Accounting Services -->
       <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
         <div class="icon-box">
-          <div class="icon"><i class="bx bxl-python"></i></div>
-          <h4><a href="">Accountant services</a></h4>
-          <p>
-            I deal with core python, machine learning and data science with
-            python programming language
-          </p>
+          <div class="icon"><i class="bi bi-calculator"></i></div>
+          <h4><a href="">Accounting Services</a></h4>
+          <p>Professional accounting services including financial reporting, tax preparation, and financial analysis for individuals and small businesses.</p>
+          <ul class="service-features">
+            <li>Financial Statement Preparation</li>
+            <li>Tax Preparation & Filing</li>
+            <li>Budget Analysis</li>
+            <li>Financial Consulting</li>
+            <li>Payroll Processing</li>
+          </ul>
         </div>
       </div>
 
+      <!-- Bookkeeping Services -->
       <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
         <div class="icon-box">
-          <div class="icon"><i class="bx bxl-java"></i></div>
-          <h4><a href="">Bookkeeper</a></h4>
-          <p>I deal with overall java software development services</p>
+          <div class="icon"><i class="bi bi-journal-text"></i></div>
+          <h4><a href="">Bookkeeping Services</a></h4>
+          <p>Accurate and organized bookkeeping services to maintain your financial records and ensure compliance.</p>
+          <ul class="service-features">
+            <li>Accounts Payable/Receivable</li>
+            <li>Bank Reconciliation</li>
+            <li>Expense Tracking</li>
+            <li>Financial Record Maintenance</li>
+            <li>QuickBooks Management</li>
+          </ul>
         </div>
       </div>
 
+      <!-- Administrative Support -->
       <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
         <div class="icon-box">
-          <div class="icon"><i class="bx bx-network-chart"></i></div>
-          <h4><a href="">Networking</a></h4>
-          <p>troubleshooting and administration of network and network hubs</p>
+          <div class="icon"><i class="bi bi-clipboard-data"></i></div>
+          <h4><a href="">Administrative Support</a></h4>
+          <p>Comprehensive administrative support to help you focus on core business activities while we handle the details.</p>
+          <ul class="service-features">
+            <li>Document Management</li>
+            <li>Meeting Coordination</li>
+            <li>Report Preparation</li>
+            <li>Database Management</li>
+            <li>Project Coordination</li>
+          </ul>
         </div>
       </div>
 
+      <!-- Client Consultation -->
       <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
         <div class="icon-box">
-          <div class="icon"><i class="bx bxl-javascript"></i></div>
-          <h4><a href="">web development</a></h4>
-          <p>
-            web development with javascript, HTML and CSS using framework such
-            as django, flask, angular and node.js
-          </p>
+          <div class="icon"><i class="bi bi-people"></i></div>
+          <h4><a href="">Client Consultation</a></h4>
+          <p>Professional consultation services to help you make informed decisions about your business operations and financial management.</p>
+          <ul class="service-features">
+            <li>Business Process Optimization</li>
+            <li>Financial Planning Advice</li>
+            <li>Real Estate Investment Guidance</li>
+            <li>Operational Efficiency Review</li>
+            <li>Customized Solution Development</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="row mt-5">
+      <div class="col-lg-12 text-center">
+        <div class="cta-box">
+          <h3>Ready to Get Started?</h3>
+          <p>Contact me today to discuss how I can help streamline your business operations and achieve your goals.</p>
+          <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Get In Touch</a>
         </div>
       </div>
     </div>

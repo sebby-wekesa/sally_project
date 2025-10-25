@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - Sally Chemtai{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    /* Error Page Styles */
+    .error-section {
+      padding: 100px 0;
+      text-align: center;
+      background: #fff;
+    }
+
+    .error-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .error-number {
+      font-size: 120px;
+      font-weight: 700;
+      color: #0563bb;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .error-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #45505b;
+      margin-bottom: 20px;
+    }
+
+    .error-message {
+      font-size: 18px;
+      color: #6c757d;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .error-image {
+      max-width: 300px;
+      margin: 40px auto;
+    }
+
+    .error-image img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+    }
+
+    .btn-home {
+      background: #0563bb;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .btn-home:hover {
+      background: #0678e3;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-contact {
+      background: transparent;
+      color: #0563bb;
+      border: 2px solid #0563bb;
+      padding: 10px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .btn-contact:hover {
+      background: #0563bb;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .error-number {
+        font-size: 80px;
+      }
+      
+      .error-title {
+        font-size: 24px;
+      }
+      
+      .error-message {
+        font-size: 16px;
+      }
+      
+      .btn-home, .btn-contact {
+        display: block;
+        margin: 10px auto;
+        max-width: 200px;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<!-- ======= Error Section ======= -->
+<section id="error" class="error-section">
+  <div class="container">
+    <div class="error-content">
+      <!-- Error Number -->
+      <div class="error-number floating">404</div>
+      
+      <!-- Error Title -->
+      <h1 class="error-title">Oops! Page Not Found</h1>
+      
+      <!-- Error Message -->
+      <p class="error-message">
+        The page you are looking for might have been removed, had its name changed, 
+        or is temporarily unavailable. Don't worry though, we can help you get back on track!
+      </p>
+
+      <!-- Optional Image -->
+      <div class="error-image">
+        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M150 50L200 100L150 150L100 100L150 50Z" fill="#f0f7ff" stroke="#0563bb" stroke-width="2"/>
+          <circle cx="150" cy="100" r="30" fill="#0563bb" opacity="0.1"/>
+          <path d="M140 90L160 90M150 80L150 100" stroke="#0563bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Suggested Actions -->
+      <div class="suggestions">
+        <h3 style="color: #45505b; margin-bottom: 15px;">Here are some helpful links instead:</h3>
+        <div class="btn-group">
+          <a href="{{ url_for('home') }}" class="btn-home">
+            <i class="bi bi-house-fill me-2"></i>Go Back Home
+          </a>
+          <a href="{{ url_for('contact') }}" class="btn-contact">
+            <i class="bi bi-envelope-fill me-2"></i>Contact Support
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Navigation -->
+      <div class="quick-links mt-5">
+        <p style="color: #6c757d; margin-bottom: 15px;">Or navigate to:</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="{{ url_for('about') }}" class="text-decoration-none text-primary">About Me</a>
+          <span class="text-muted">•</span>
+          <a href="{{ url_for('services') }}" class="text-decoration-none text-primary">Services</a>
+          <span class="text-muted">•</span>
+          <a href="{{ url_for('resume') }}" class="text-decoration-none text-primary">Resume</a>
+          <span class="text-muted">•</span>
+          <a href="{{ url_for('contact') }}" class="text-decoration-none text-primary">Contact</a>
+        </div>
+      </div>
+
+      <!-- Search Form (Optional) -->
+      <div class="search-box mt-4">
+        <p style="color: #6c757d; margin-bottom: 15px;">Can't find what you're looking for?</p>
+        <form action="#" method="get" class="d-flex justify-content-center">
+          <div class="input-group" style="max-width: 400px;">
+            <input type="text" class="form-control" placeholder="Search the website..." aria-label="Search">
+            <button class="btn btn-primary" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Error Section -->
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  // Optional: Add some interactive elements
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add click animation to buttons
+    const buttons = document.querySelectorAll('.btn-home, .btn-contact');
+    buttons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 150);
+      });
+    });
+    
+    // Simple search functionality (you can enhance this)
+    const searchForm = document.querySelector('form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const searchTerm = this.querySelector('input[type="text"]').value;
+        if (searchTerm.trim()) {
+          alert('Search functionality would go here! Searching for: ' + searchTerm);
+          // In a real implementation, you would redirect to search results
+          // window.location.href = '/search?q=' + encodeURIComponent(searchTerm);
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

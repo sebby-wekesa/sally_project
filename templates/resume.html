@@ -1,100 +1,141 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 
-{% block heading %}
-    Resume
+{% block title %}Resume - Sally Chemtai{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <!-- Additional resume-specific styles -->
 {% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 {% block body %}
+<!-- ======= Resume Section ======= -->
 <section id="resume" class="resume">
-    <div class="container">
-
-      <div class="section-title">
-        <h2>Resume</h2>
-        <p>Check My Resume</p>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6">
-          <h3 class="resume-title">Summary</h3>
-          <div class="resume-item pb-0">
-            <h4>Sebby wekesa</h4>
-            <p><em>Motivated and adaptable Computer Science graduate with hands-on IT experience in support, networking, and
-software development. Strong problem-solving skills with a focus on delivering efficient technical solutions.
-Adept at troubleshooting, system maintenance, and collaborating in team environments.</em></p>
-            <p>
-            <ul>
-              <li>Nairobi, Kenya</li>
-              <li>(+254)797 294 574</li>
-              <li>sebbywakis@gmail.com</li>
-            </ul>
-            </p>
-          </div>
-
-          <h3 class="resume-title">Education</h3>
-          <div class="resume-item">
-            <h4>Bachelor of science in computer science</h4>
-            <h5>2018 - 2023</h5>
-            <p><em>Gretsa University BSc. Computer science, Thika</em></p>
-            <p>Key skills gained:
-            <ul>
-            	<li> Web development skills for both front end and back end (strong at backend) using python (Django and Flask), PHP, JavaScript, HTML, CSS, SQL, POSTGRESQL</li>
-            	<li>Understanding Object oriented design, Functional design and Analysis concepts.</li>
-            	<li>Machine learning and Data science </li>
-            	<li>Great understanding in networking.</li>
-            	<li>Skills in dealing with Databases.</li>
-            	<li>Skills in Object oriented language such as C++ and java</li>
-            </ul>
-
-</p>
-          </div>
-          <div class="resume-item">
-            <h4>Kenya certificate of secondary education</h4>
-            <h5>2014 - 2017</h5>
-            <p><em>AIC Kapkoi Secondary School, Moi's Bridge</em></p>
-            <p>KCSE Certificate C+</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <h3 class="resume-title">Professional Experience</h3>
-          <div class="resume-item">
-            <h4>Civil Registrations service (internship)</h4>
-            <h5> Jan 2023 - April 2023</h5>
-            <p><em>Kitale, Trans nzoia county, Kenya </em></p>
-            <p>
-            <ul>
-              <li>Registration and productions of birth and death certificate </li>
-              <li>Networking:- configuring switches and router, troubleshooting different network issues and converting wired to wireless network </li>
-              <li>Intergreting customer feedback into product and managing backlogs to prioritize item in line with customer goal</li>
-              <li>Software Updates:- installing missing drivers in various office computers and maintaining updates</li>
-              <li>Hardware troubleshooting and maintanance </li>
-            </ul>
-            </p>
-          </div>
-          <div class="resume-item">
-            <h4>Reference</h4>
-            <h5>Joseph ndongoli</h5>
-            <p>
-            <ul>
-              <li>County Civil Registrar</li>
-              <li>Kitale</li>
-              <li>Phone No: 0729058666</li>
-              <li>Trans-nzoia county</li>
-            </ul>
-            </p>
-            <h5>elisha kihembele</h5>
-            <p>
-            <ul>
-              <li>Civil servant</li>
-              <li>Kitale</li>
-              <li>Phone No: 0729058666</li>
-              <li>Trans-nzoia county</li>
-            </ul>
-            </p>
-          </div>
-        </div>
-      </div>
-
+  <div class="container">
+    <div class="section-title">
+      <h2>Resume</h2>
+      <p>Check My Resume</p>
     </div>
-  </section><!-- End Resume Section -->
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h3 class="resume-title">Summary</h3>
+        <div class="resume-item pb-0">
+          <h4>Sally Chemtai</h4>
+          <p><em>Versatile professional with extensive experience as a virtual assistant, real estate officer, accountant, and bookkeeper. Motivated and adaptable with strong problem-solving skills and a focus on delivering efficient solutions and excellent client satisfaction.</em></p>
+          <p>
+          <ul>
+            <li>Nairobi, Kenya</li>
+            <li>+254 712 507368</li>
+            <li>sallychemtai@gmail.com</li>
+          </ul>
+          </p>
+        </div>
+
+        <h3 class="resume-title">Education</h3>
+        <div class="resume-item">
+          <h4>Bachelor of Commerce (Accounting Option)</h4>
+          <h5>2016 - 2020</h5>
+          <p><em>University of Nairobi, Nairobi, Kenya</em></p>
+          <p>Key skills gained:
+          <ul>
+            <li>Financial Accounting and Reporting</li>
+            <li>Management Accounting and Cost Analysis</li>
+            <li>Taxation and Auditing Principles</li>
+            <li>Business Law and Ethics</li>
+            <li>Financial Management</li>
+            <li>Business Communication</li>
+          </ul>
+          </p>
+        </div>
+
+        <div class="resume-item">
+          <h4>Kenya Certificate of Secondary Education</h4>
+          <h5>2012 - 2015</h5>
+          <p><em>Moi Girls High School, Eldoret</em></p>
+          <p>KCSE Certificate: B+</p>
+        </div>
+
+        <h3 class="resume-title">Professional Certifications</h3>
+        <div class="resume-item">
+          <ul>
+            <li>Certified Virtual Assistant (CVA) - International Association of Virtual Assistants</li>
+            <li>Real Estate Sales Agent License - Kenya</li>
+            <li>QuickBooks Certified User</li>
+            <li>Google Workspace Administration</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <h3 class="resume-title">Professional Experience</h3>
+        
+        <div class="resume-item">
+          <h4>Virtual Assistant & Real Estate Officer</h4>
+          <h5>2021 - Present</h5>
+          <p><em>Self-Employed, Nairobi, Kenya</em></p>
+          <p>
+          <ul>
+            <li>Provide comprehensive virtual assistance services including email management, scheduling, and data entry</li>
+            <li>Manage real estate listings, property viewings, and client consultations</li>
+            <li>Handle property sales and rental agreements</li>
+            <li>Maintain client databases and property portfolios</li>
+            <li>Coordinate with property owners and potential buyers/tenants</li>
+          </ul>
+          </p>
+        </div>
+
+        <div class="resume-item">
+          <h4>Accounting Assistant</h4>
+          <h5>2020 - 2021</h5>
+          <p><em>Prime Solutions Ltd, Nairobi, Kenya</em></p>
+          <p>
+          <ul>
+            <li>Managed accounts payable and receivable</li>
+            <li>Processed payroll and maintained employee records</li>
+            <li>Prepared financial reports and statements</li>
+            <li>Assisted in budget preparation and monitoring</li>
+            <li>Handled bank reconciliations and petty cash management</li>
+          </ul>
+          </p>
+        </div>
+
+        <div class="resume-item">
+          <h4>Bookkeeping Intern</h4>
+          <h5>2019 - 2020</h5>
+          <p><em>Greenfield Accounting Firm, Nairobi, Kenya</em></p>
+          <p>
+          <ul>
+            <li>Assisted in maintaining financial records</li>
+            <li>Processed invoices and expense reports</li>
+            <li>Helped with tax preparation and filing</li>
+            <li>Supported senior accountants in audit preparations</li>
+            <li>Learned various accounting software applications</li>
+          </ul>
+          </p>
+        </div>
+
+        <h3 class="resume-title">Skills</h3>
+        <div class="resume-item">
+          <h4>Professional Skills</h4>
+          <p>
+          <ul>
+            <li><strong>Virtual Assistance:</strong> Email Management, Scheduling, Data Entry, Customer Service</li>
+            <li><strong>Real Estate:</strong> Property Management, Sales & Rentals, Client Consultation</li>
+            <li><strong>Accounting:</strong> Bookkeeping, Financial Reporting, Tax Preparation</li>
+            <li><strong>Software:</strong> QuickBooks, Microsoft Office Suite, Google Workspace</li>
+            <li><strong>Languages:</strong> English (Fluent), Swahili (Native)</li>
+          </ul>
+          </p>
+        </div>
+
+        <div class="text-center mt-4">
+          <a href="{{ url_for('static', filename='docs/sally-chemtai-resume.pdf') }}" class="btn btn-primary" download>
+            <i class="bi bi-download me-2"></i>Download Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Resume Section -->
 {% endblock %}

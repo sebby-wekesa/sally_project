@@ -1,55 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-
-    <title>Sally Chemtai | portfolio</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
-
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon" />
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
+    {% block head %}
+    <!-- your existing head content -->
+    <meta name="author" content="Sally Chemtai" />
+    <meta property="og:title" content="Sally Chemtai | Portfolio" />
+    <meta
+      property="og:description"
+      content="Professional portfolio of Sally Chemtai"
     />
-
-    <!-- Vendor CSS Files -->
-    <link
-      href="static/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="static/vendor/bootstrap-icons/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link href="static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link
-      href="static/vendor/glightbox/css/glightbox.min.css"
-      rel="stylesheet"
-    />
-    <link href="static/vendor/remixicon/remixicon.css" rel="stylesheet" />
-    <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-
-    <!-- Template Main static Files -->
-    <script src="scripts.js"></script>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
+    <meta property="og:type" content="website" />
+    {% endblock %}
   </head>
-  <header id="header">
-    <div class="container">
-      <h1><a href="{{ url_for('home') }}">Sally Chemtai</a></h1>
-
-      <nav id="navbar" class="navbar">
+  <body>
+    <header id="header">
+      <!-- your header content -->
+      <nav id="navbar" class="navbar" aria-label="Main Navigation">
         <ul>
           <li>
-            <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
+            <a
+              class="nav-link active"
+              href="{{ url_for('home') }}"
+              aria-current="page"
+              >Home</a
+            >
           </li>
           <li><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
           <li><a class="nav-link" href="{{ url_for('resume') }}">Resume</a></li>
@@ -57,14 +31,28 @@
             <a class="nav-link" href="{{ url_for('services') }}">Services</a>
           </li>
           <li>
-            <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+            <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
           </li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+        <button
+          class="mobile-nav-toggle"
+          aria-expanded="false"
+          aria-controls="navbar"
+        >
+          <i class="bi bi-list"></i>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
       </nav>
-      <!-- .navbar -->
-    </div>
-  </header>
-  {%block body%} {%endblock%}
-  <div class="credits">Designed by @sebby wekesa</div>
+    </header>
+
+    <main>
+      {% block body %}
+      <!-- Content will be injected here by child templates -->
+      {% endblock %}
+    </main>
+
+    <footer>
+      <div class="credits">Designed by @sebby wekesa</div>
+    </footer>
+  </body>
 </html>

@@ -1,7 +1,169 @@
-{% extends "base.html" %} {% block heading %} Contact {% endblock %} {% block
-styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-{% endblock %} {% block body %}
+{% extends "base.html" %}
+
+{% block title %}Contact - Sally Chemtai{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    /* Additional contact page styles */
+    .contact .info-box {
+      color: #444444;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+      padding: 20px 0 30px 0;
+      border-radius: 10px;
+      height: 100%;
+    }
+
+    .contact .info-box i {
+      font-size: 32px;
+      color: #0563bb;
+      border-radius: 50%;
+      padding: 8px;
+      border: 2px dotted #a2c6f0;
+    }
+
+    .contact .info-box h3 {
+      font-size: 20px;
+      color: #777777;
+      font-weight: 700;
+      margin: 10px 0;
+    }
+
+    .contact .info-box p {
+      padding: 0;
+      line-height: 24px;
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+
+    .contact .social-links {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .contact .social-links a {
+      font-size: 18px;
+      display: inline-block;
+      background: #0563bb;
+      color: #fff;
+      line-height: 1;
+      padding: 8px 0;
+      margin: 0 8px;
+      border-radius: 50%;
+      text-align: center;
+      width: 36px;
+      height: 36px;
+      transition: 0.3s;
+    }
+
+    .contact .social-links a:hover {
+      background: #0678e3;
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    .contact .php-email-form {
+      box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .contact .php-email-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .contact .php-email-form .form-control {
+      border-radius: 5px;
+      box-shadow: none;
+      font-size: 14px;
+      border: 1px solid #ced4da;
+      transition: all 0.3s;
+    }
+
+    .contact .php-email-form .form-control:focus {
+      border-color: #0563bb;
+      box-shadow: 0 0 8px rgba(5, 99, 187, 0.1);
+    }
+
+    .contact .php-email-form .form-label {
+      font-weight: 600;
+      color: #45505b;
+      margin-bottom: 8px;
+    }
+
+    .contact .php-email-form textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact .php-email-form .btn-primary {
+      background: #0563bb;
+      border: 0;
+      padding: 12px 40px;
+      color: #fff;
+      transition: 0.4s;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    .contact .php-email-form .btn-primary:hover {
+      background: #0678e3;
+      transform: translateY(-2px);
+    }
+
+    /* Alert styles */
+    .alert {
+      border: none;
+      border-radius: 8px;
+      padding: 15px 20px;
+    }
+
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .alert-danger {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .alert-warning {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    /* Loading state */
+    .btn-loading {
+      position: relative;
+      pointer-events: none;
+    }
+
+    .btn-loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      border-right-color: transparent;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<!-- ======= Contact Section ======= -->
 <section id="contact" class="contact">
   <div class="container">
     <div class="section-title">
@@ -10,161 +172,238 @@ styles %}
     </div>
 
     <div class="row mt-2">
+      <!-- Address -->
       <div class="col-md-6 d-flex align-items-stretch">
         <div class="info-box">
-          <i class="bx bx-map"></i>
+          <i class="bi bi-geo-alt"></i>
           <h3>My Address</h3>
-          <p>Nairobi, Kenya, 01000</p>
+          <p>Nairobi, Kenya, 00100</p>
         </div>
       </div>
 
+      <!-- Social Profiles -->
       <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
         <div class="info-box">
-          <i class="bx bx-share-alt"></i>
+          <i class="bi bi-share"></i>
           <h3>Social Profiles</h3>
           <div class="social-links">
-            <a
-              href="https://twitter.com/Sebby_wekesa"
-              class="twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><i class="bi bi-twitter"></i
-            ></a>
-            <a
-              href="https://github.com/sebby-wekesa"
-              class="github"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><i class="bi bi-github"></i
-            ></a>
-            <a
-              href="https://www.instagram.com/iam_s.e.b.b.y/#"
-              class="instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><i class="bi bi-instagram"></i
-            ></a>
-            <a
-              href="https://www.linkedin.com/in/sebby-wekesa-1532781a0"
-              class="linkedin"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><i class="bi bi-linkedin"></i
-            ></a>
+            <a href="https://linkedin.com/in/sally-chemtai" class="linkedin" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="https://twitter.com/sallychemtai" class="twitter" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-twitter"></i>
+            </a>
+            <a href="https://facebook.com/sallychemtai" class="facebook" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="https://instagram.com/sallychemtai" class="instagram" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-instagram"></i>
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- Email -->
       <div class="col-md-6 mt-4 d-flex align-items-stretch">
         <div class="info-box">
-          <i class="bx bx-envelope"></i>
+          <i class="bi bi-envelope"></i>
           <h3>Email Me</h3>
-          <p>sally_65@gmail.com</p>
+          <p>sallychemtai@gmail.com</p>
         </div>
       </div>
+
+      <!-- Phone -->
       <div class="col-md-6 mt-4 d-flex align-items-stretch">
         <div class="info-box">
-          <i class="bx bx-phone-call"></i>
+          <i class="bi bi-phone"></i>
           <h3>Call Me</h3>
-          <p>+254 7125 07368</p>
+          <p>+254 712 507368</p>
         </div>
       </div>
     </div>
 
-    <form
-      method="POST"
-      action="{{ url_for('contact') }}"
-      class="mt-4"
-      novalidate
-    >
+    <!-- Contact Form -->
+    <form method="POST" action="{{ url_for('contact') }}" class="php-email-form mt-4" novalidate>
       {{ form.hidden_tag() }}
 
       <div class="row">
         <div class="col-md-6 form-group">
-          {{ form.name.label(class="form-label") }} {{
-          form.name(class="form-control" + (" is-invalid" if form.name.errors
-          else ""), placeholder="Your Name") }} {% for error in form.name.errors
-          %}
+          {{ form.name.label(class="form-label") }}
+          {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Your Full Name") }}
+          {% for error in form.name.errors %}
           <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
         <div class="col-md-6 form-group mt-3 mt-md-0">
           {{ form.email.label(class="form-label") }}
-          {{form.email(class="form-control" + (" is-invalid" if
-          form.email.errors else ""), placeholder="Your Email") }} {% for error
-          in form.email.errors %}
+          {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="your.email@example.com") }}
+          {% for error in form.email.errors %}
           <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
       </div>
 
       <div class="form-group mt-3">
-        {{ form.subject.label(class="form-label") }} {{
-        form.subject(class="form-control" + (" is-invalid" if
-        form.subject.errors else ""), placeholder="Subject") }} {% for error in
-        form.subject.errors %}
+        {{ form.subject.label(class="form-label") }}
+        {{ form.subject(class="form-control" + (" is-invalid" if form.subject.errors else ""), placeholder="What is this regarding?") }}
+        {% for error in form.subject.errors %}
         <div class="invalid-feedback">{{ error }}</div>
         {% endfor %}
       </div>
 
       <div class="form-group mt-3">
-        {{ form.message.label(class="form-label") }} {{
-        form.message(class="form-control" + (" is-invalid" if
-        form.message.errors else ""), rows="5", placeholder="Your Message") }}
+        {{ form.message.label(class="form-label") }}
+        {{ form.message(class="form-control" + (" is-invalid" if form.message.errors else ""), rows="6", placeholder="Please describe your inquiry in detail...") }}
         {% for error in form.message.errors %}
         <div class="invalid-feedback">{{ error }}</div>
         {% endfor %}
       </div>
 
+      <!-- Flash Messages -->
       <div class="my-3">
-        {% with messages = get_flashed_messages(with_categories=true) %} {% if
-        messages %} {% for category, message in messages %}
-        <div
-          class="alert alert-{{ category }} alert-dismissible fade show"
-          role="alert"
-        >
-          {{ message }}
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-        {% endfor %} {% endif %} {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              <i class="bi {% if category == 'success' %}bi-check-circle-fill{% else %}bi-exclamation-triangle-fill{% endif %} me-2"></i>
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
       </div>
 
       <div class="text-center">
-        <button type="submit" class="btn btn-primary">Send Message</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          <i class="bi bi-send-fill me-2"></i>Send Message
+        </button>
       </div>
     </form>
+
+    <!-- Additional Contact Information -->
+    <div class="row mt-5">
+      <div class="col-lg-12">
+        <div class="info-box additional-info">
+          <h4>Business Hours</h4>
+          <div class="row text-center">
+            <div class="col-md-3">
+              <strong>Monday - Friday</strong><br>
+              8:00 AM - 6:00 PM
+            </div>
+            <div class="col-md-3">
+              <strong>Saturday</strong><br>
+              9:00 AM - 2:00 PM
+            </div>
+            <div class="col-md-3">
+              <strong>Sunday</strong><br>
+              Closed
+            </div>
+            <div class="col-md-3">
+              <strong>Response Time</strong><br>
+              Within 24 hours
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-{% endblock %} {% block scripts %}
+<!-- End Contact Section -->
+{% endblock %}
+
+{% block scripts %}
 <script>
-  // Add client-side validation enhancement
   document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
+    const form = document.querySelector(".php-email-form");
+    const submitBtn = document.getElementById("submit-btn");
+
     if (form) {
+      // Real-time validation
+      form.querySelectorAll(".form-control").forEach(field => {
+        field.addEventListener("blur", function() {
+          validateField(this);
+        });
+        
+        field.addEventListener("input", function() {
+          if (this.classList.contains("is-invalid")) {
+            validateField(this);
+          }
+        });
+      });
+
+      // Form submission
       form.addEventListener("submit", function (event) {
         let isValid = true;
 
-        // Validate all required fields
-        form.querySelectorAll("[required]").forEach((field) => {
-          if (!field.value.trim()) {
-            field.classList.add("is-invalid");
+        // Validate all fields
+        form.querySelectorAll(".form-control").forEach(field => {
+          if (!validateField(field)) {
             isValid = false;
           }
         });
 
-        if (!isValid) {
+        if (isValid && submitBtn) {
+          // Show loading state
+          submitBtn.classList.add("btn-loading");
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Sending...';
+        } else {
           event.preventDefault();
           event.stopPropagation();
         }
 
         form.classList.add("was-validated");
       });
+
+      function validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+
+        // Clear previous validation
+        field.classList.remove("is-invalid", "is-valid");
+
+        // Required field validation
+        if (field.hasAttribute("required") && !value) {
+          field.classList.add("is-invalid");
+          isValid = false;
+        }
+
+        // Email validation
+        if (field.type === "email" && value) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            field.classList.add("is-invalid");
+            isValid = false;
+          }
+        }
+
+        // Length validation
+        if (value && field.hasAttribute("minlength")) {
+          const minLength = parseInt(field.getAttribute("minlength"));
+          if (value.length < minLength) {
+            field.classList.add("is-invalid");
+            isValid = false;
+          }
+        }
+
+        // If valid and has value, mark as valid
+        if (isValid && value) {
+          field.classList.add("is-valid");
+        }
+
+        return isValid;
+      }
     }
+
+    // Auto-dismiss alerts after 5 seconds
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      setTimeout(() => {
+        const bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+      }, 5000);
+    });
   });
 </script>
 {% endblock %}

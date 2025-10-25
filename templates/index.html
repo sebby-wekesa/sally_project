@@ -1,35 +1,141 @@
-{% extends "base.html" %} {% block heading %} homepage {% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+{% extends "base.html" %}
+
+{% block title %}Home - Sally Chemtai{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <!-- Additional home page specific styles can go here -->
+{% endblock %}
+
 {% block body %}
-<header id="header">
-  <div class="container">
-    <h2>
-      I'm a passionate
-      <b><span>virtual assistance and real estate officer</span></b> from
-      Nairobi, Kenya
-    </h2>
-    <p>
-      <h5>
-      I'm are a versatile professional with extensive experience as a virtual
-      assistant, real estate officer, accountant, and bookkeeper.
-      </h5>
-    </p>
-    <div class="social-links">
-      <a href="https://twitter.com/Sebby_wekesa" class="twitter"
-        ><i class="bi bi-twitter"></i
-      ></a>
-      <a href="https://github.com/sebby-wekesa" class="github"
-        ><i class="bi bi-github"></i
-      ></a>
-      <a href="https://www.instagram.com/iam_s.e.b.b.y/#" class="instagram"
-        ><i class="bi bi-instagram"></i
-      ></a>
-      <a
-        href="https://www.linkedin.com/in/sebby-wekesa-1532781a0"
-        class="linkedin"
-        ><i class="bi bi-linkedin"></i
-      ></a>
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+  <div class="container text-center">
+    <div class="hero-content">
+      <h1>Welcome to My Professional Portfolio</h1>
+      <h2>
+        I'm a passionate
+        <span class="highlight">Virtual Assistant & Real Estate Officer</span> from
+        Nairobi, Kenya
+      </h2>
+      <p class="lead">
+        I'm a versatile professional with extensive experience as a virtual
+        assistant, real estate officer, accountant, and bookkeeper. My diverse 
+        skill set enables me to provide comprehensive support and services, 
+        ensuring efficient operations and excellent client satisfaction.
+      </p>
+      
+      <div class="social-links mt-4">
+        <a href="https://twitter.com/Sebby_wekesa" class="twitter" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-twitter"></i>
+        </a>
+        <a href="https://github.com/sebby-wekesa" class="github" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-github"></i>
+        </a>
+        <a href="https://www.instagram.com/iam_s.e.b.b.y/#" class="instagram" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/sebby-wekesa-1532781a0" class="linkedin" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-linkedin"></i>
+        </a>
+      </div>
+      
+      <div class="cta-buttons mt-4">
+        <a href="{{ url_for('about') }}" class="btn btn-primary btn-lg me-3">
+          Learn More About Me
+        </a>
+        <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">
+          Get In Touch
+        </a>
+      </div>
     </div>
   </div>
-</header>
+</section>
+
+<!-- ======= Quick Stats Section ======= -->
+<section id="stats" class="stats section-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-6">
+        <div class="count-box">
+          <i class="bi bi-briefcase"></i>
+          <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter">3</span>
+          <p>Years Experience</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-6">
+        <div class="count-box">
+          <i class="bi bi-journal-check"></i>
+          <span data-purecounter-start="0" data-purecounter-end="50" data-purecounter-duration="1" class="purecounter">50</span>
+          <p>Projects Completed</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-6">
+        <div class="count-box">
+          <i class="bi bi-people"></i>
+          <span data-purecounter-start="0" data-purecounter-end="30" data-purecounter-duration="1" class="purecounter">30</span>
+          <p>Happy Clients</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-6">
+        <div class="count-box">
+          <i class="bi bi-award"></i>
+          <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter">5</span>
+          <p>Certifications</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Services Preview Section ======= -->
+<section id="services-preview" class="services-preview">
+  <div class="container">
+    <div class="section-title">
+      <h2>My Services</h2>
+      <p>What I Can Offer</p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+        <div class="service-box">
+          <div class="icon"><i class="bi bi-laptop"></i></div>
+          <h4><a href="{{ url_for('services') }}">Virtual Assistance</a></h4>
+          <p>Comprehensive administrative support, email management, scheduling, and data entry services.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+        <div class="service-box">
+          <div class="icon"><i class="bi bi-house-door"></i></div>
+          <h4><a href="{{ url_for('services') }}">Real Estate Services</a></h4>
+          <p>Property management, sales, rentals, and real estate consultancy services.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+        <div class="service-box">
+          <div class="icon"><i class="bi bi-calculator"></i></div>
+          <h4><a href="{{ url_for('services') }}">Accounting & Bookkeeping</a></h4>
+          <p>Professional financial record keeping, budgeting, and accounting services.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{{ url_for('services') }}" class="btn btn-outline-primary">View All Services</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<!-- Initialize PureCounter -->
+<script>
+  new PureCounter();
+</script>
 {% endblock %}
