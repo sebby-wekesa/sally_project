@@ -1,0 +1,333 @@
+2025-11-27 12:54:36,268 INFO app Database tables created successfully
+2025-11-27 12:54:36,268 INFO app Starting Sally Chemtai Portfolio application on port 5000
+2025-11-27 12:54:36,273 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.19.190.148:5000
+2025-11-27 12:54:36,273 INFO werkzeug [33mPress CTRL+C to quit[0m
+2025-11-27 12:54:48,642 ERROR app Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1169, in _check_request_limit
+    raise e
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1153, in _check_request_limit
+    self.__evaluate_limits(endpoint, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1081, in __evaluate_limits
+    if not method(lim.limit, *args, **kwargs):
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/strategies.py", line 157, in hit
+    self.storage.incr(
+    ~~~~~~~~~~~~~~~~~^
+        item.key_for(*identifiers),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        item.get_expiry(),
+        ^^^^^^^^^^^^^^^^^^
+        amount=cost,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/base.py", line 25, in inner
+    return fn(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/redis.py", line 224, in incr
+    return int(self.lua_incr_expire([key], [expiry, amount]))
+               ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 5948, in __call__
+    return client.evalsha(self.sha, len(keys), *args)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6165, in evalsha
+    return self._evalsha("EVALSHA", sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6149, in _evalsha
+    return self.execute_command(command, sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to localhost:6379. Connection refused.
+2025-11-27 12:54:48,797 ERROR app 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-11-27 12:54:48,912 INFO werkzeug 127.0.0.1 - - [27/Nov/2025 12:54:48] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-11-27 12:54:49,008 WARNING app 404 error: http://127.0.0.1:5000/favicon.ico
+2025-11-27 12:54:49,053 INFO werkzeug 127.0.0.1 - - [27/Nov/2025 12:54:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-27 12:55:07,168 ERROR app Exception on /services [GET]
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1169, in _check_request_limit
+    raise e
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1153, in _check_request_limit
+    self.__evaluate_limits(endpoint, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1081, in __evaluate_limits
+    if not method(lim.limit, *args, **kwargs):
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/strategies.py", line 157, in hit
+    self.storage.incr(
+    ~~~~~~~~~~~~~~~~~^
+        item.key_for(*identifiers),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        item.get_expiry(),
+        ^^^^^^^^^^^^^^^^^^
+        amount=cost,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/base.py", line 25, in inner
+    return fn(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/redis.py", line 224, in incr
+    return int(self.lua_incr_expire([key], [expiry, amount]))
+               ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 5948, in __call__
+    return client.evalsha(self.sha, len(keys), *args)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6165, in evalsha
+    return self._evalsha("EVALSHA", sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6149, in _evalsha
+    return self.execute_command(command, sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to localhost:6379. Connection refused.
+2025-11-27 12:55:07,176 ERROR app 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-11-27 12:55:07,177 INFO werkzeug 127.0.0.1 - - [27/Nov/2025 12:55:07] "[35m[1mGET /services HTTP/1.1[0m" 500 -
+2025-11-27 12:55:08,348 ERROR app Exception on /services [GET]
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1169, in _check_request_limit
+    raise e
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1153, in _check_request_limit
+    self.__evaluate_limits(endpoint, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1081, in __evaluate_limits
+    if not method(lim.limit, *args, **kwargs):
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/strategies.py", line 157, in hit
+    self.storage.incr(
+    ~~~~~~~~~~~~~~~~~^
+        item.key_for(*identifiers),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        item.get_expiry(),
+        ^^^^^^^^^^^^^^^^^^
+        amount=cost,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/base.py", line 25, in inner
+    return fn(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/redis.py", line 224, in incr
+    return int(self.lua_incr_expire([key], [expiry, amount]))
+               ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 5948, in __call__
+    return client.evalsha(self.sha, len(keys), *args)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6165, in evalsha
+    return self._evalsha("EVALSHA", sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6149, in _evalsha
+    return self.execute_command(command, sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to localhost:6379. Connection refused.
+2025-11-27 12:55:08,366 ERROR app 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-11-27 12:55:08,368 INFO werkzeug 127.0.0.1 - - [27/Nov/2025 12:55:08] "[35m[1mGET /services HTTP/1.1[0m" 500 -
+2025-11-27 12:55:09,606 ERROR app Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 855, in connect_check_health
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/retry.py", line 116, in call_with_retry
+    return do()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 856, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1306, in _connect
+    raise err
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 1290, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1169, in _check_request_limit
+    raise e
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1153, in _check_request_limit
+    self.__evaluate_limits(endpoint, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/flask_limiter/_extension.py", line 1081, in __evaluate_limits
+    if not method(lim.limit, *args, **kwargs):
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/strategies.py", line 157, in hit
+    self.storage.incr(
+    ~~~~~~~~~~~~~~~~~^
+        item.key_for(*identifiers),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        item.get_expiry(),
+        ^^^^^^^^^^^^^^^^^^
+        amount=cost,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/base.py", line 25, in inner
+    return fn(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/limits/storage/redis.py", line 224, in incr
+    return int(self.lua_incr_expire([key], [expiry, amount]))
+               ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 5948, in __call__
+    return client.evalsha(self.sha, len(keys), *args)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6165, in evalsha
+    return self._evalsha("EVALSHA", sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 6149, in _evalsha
+    return self.execute_command(command, sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 657, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/client.py", line 663, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/utils.py", line 196, in wrapper
+    return func(*args, **kwargs)
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 2603, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 846, in connect
+    self.connect_check_health(check_health=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/sebby/Desktop/sally_project/.venv/lib/python3.13/site-packages/redis/connection.py", line 863, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to localhost:6379. Connection refused.
+2025-11-27 12:55:09,618 ERROR app 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-11-27 12:55:09,619 INFO werkzeug 127.0.0.1 - - [27/Nov/2025 12:55:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
