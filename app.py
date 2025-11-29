@@ -1,6 +1,8 @@
 import os
 import logging
+import sys
 from datetime import datetime
+from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
@@ -16,20 +18,39 @@ import bleach
 load_dotenv()
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s %(levelname)s %(name)s %(message)s',
-    handlers=[
-        logging.FileHandler('portfolio.log'),
-        logging.StreamHandler()
-    ]
-)
+def setup_logging():
+    """Configure logging for different environments"""
+    log_level = os.environ.get('LOG_LEVEL', 'INFO').upper()
+    log_file = os.environ.get('LOG_FILE', 'portfolio.log')
+    
+    formatter = logging.Formatter(
+        '%(asctime)s %(levelname)s [%(name)s:%(filename)s:%(funcName)s:%(lineno)d] %(message)s'
+    )
+    
+    # File handler
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setFormatter(formatter)
+    
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    
+    logger = logging.getLogger()
+    logger.setLevel(getattr(logging, log_level))
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    
+    return logger
+
+logger = setup_logging()
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+app.config['ENV'] = os.environ.get('FLASK_ENV', 'production')
 
 # Configuration
 class Config:
+    """Base configuration"""
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'sqlite:///portfolio.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {
@@ -51,8 +72,37 @@ class Config:
     
     # Rate limiting
     RATELIMIT_STORAGE_URI = os.environ.get('REDIS_URL', 'memory://')
+    
+    # Site configuration
+    SITE_NAME = 'Sally Chemtai Portfolio'
+    ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'sallychemtai@gmail.com')
+    PHONE_NUMBER = os.environ.get('PHONE_NUMBER', '+254 712 507368')
 
-app.config.from_object(Config)
+class DevelopmentConfig(Config):
+    """Development configuration"""
+    DEBUG = True
+    TESTING = False
+
+class ProductionConfig(Config):
+    """Production configuration"""
+    DEBUG = False
+    TESTING = False
+
+class TestingConfig(Config):
+    """Testing configuration"""
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    WTF_CSRF_ENABLED = False
+
+# Select configuration based on environment
+config_name = os.environ.get('FLASK_ENV', 'production')
+config_map = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+    'testing': TestingConfig
+}
+app.config.from_object(config_map.get(config_name, ProductionConfig))
 
 # Initialize extensions
 db = SQLAlchemy(app)
@@ -92,15 +142,16 @@ class ContactMessage(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False, index=True)
     subject = db.Column(db.String(200), nullable=False)
     message = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, index=True)
     ip_address = db.Column(db.String(50))
     user_agent = db.Column(db.Text)
-    is_processed = db.Column(db.Boolean, default=False)
+    is_processed = db.Column(db.Boolean, default=False, index=True)
     
     def to_dict(self):
+        """Convert model to dictionary"""
         return {
             'id': self.id,
             'name': self.name,
@@ -111,6 +162,9 @@ class ContactMessage(db.Model):
             'ip_address': self.ip_address,
             'is_processed': self.is_processed
         }
+    
+    def __repr__(self):
+        return f'<ContactMessage {self.id}: {self.email}>'
 
 # Utility functions
 def sanitize_input(text):
@@ -158,7 +212,7 @@ def send_notification_email(name, email, subject, message, message_id):
                 <hr>
                 <p><strong>Message:</strong></p>
                 <div style="background: #f5f5f5; padding: 15px; border-radius: 5px;">
-                    {message.replace(chr(10), '<br>')}
+                    {bleach.clean(message, tags=[], attributes={}, styles=[], strip=True).replace(chr(10), '<br>')}
                 </div>
                 <hr>
                 <p><small>This message was sent from your portfolio website contact form.</small></p>
@@ -168,7 +222,7 @@ def send_notification_email(name, email, subject, message, message_id):
         
         msg = Message(
             subject=f"📧 Portfolio Contact: {subject}",
-            recipients=[os.environ.get('ADMIN_EMAIL', 'sallychemtai@gmail.com')],
+            recipients=[app.config['ADMIN_EMAIL']],
             html=html_body
         )
         mail.send(msg)
@@ -184,16 +238,16 @@ def send_auto_reply(email, name):
         html_body = f"""
         <html>
             <body>
-                <h2>Thank You for Contacting Sally Chemtai</h2>
+                <h2>Thank You for Contacting {app.config['SITE_NAME']}</h2>
                 <p>Dear {name},</p>
                 <p>Thank you for reaching out through my portfolio website. I have received your message and will get back to you as soon as possible.</p>
-                <p>For urgent matters, you can reach me directly at +254 712 507368.</p>
+                <p>For urgent matters, you can reach me directly at {app.config['PHONE_NUMBER']}.</p>
                 <hr>
                 <p><strong>Sally Chemtai</strong><br>
                 Virtual Assistant & Real Estate Officer<br>
                 Nairobi, Kenya<br>
-                Phone: +254 712 507368<br>
-                Email: sallychemtai@gmail.com</p>
+                Phone: {app.config['PHONE_NUMBER']}<br>
+                Email: {app.config['ADMIN_EMAIL']}</p>
                 <hr>
                 <p><small>This is an automated response. Please do not reply to this email.</small></p>
             </body>
@@ -201,7 +255,7 @@ def send_auto_reply(email, name):
         """
         
         msg = Message(
-            subject="Thank you for contacting Sally Chemtai",
+            subject=f"Thank you for contacting {app.config['SITE_NAME']}",
             recipients=[email],
             html=html_body
         )
@@ -220,9 +274,10 @@ def inject_current_year():
 @app.context_processor
 def inject_site_info():
     return {
-        'site_name': 'Sally Chemtai Portfolio',
+        'site_name': app.config['SITE_NAME'],
         'site_description': 'Professional Virtual Assistant & Real Estate Officer',
-        'admin_email': 'sallychemtai@gmail.com'
+        'admin_email': app.config['ADMIN_EMAIL'],
+        'phone_number': app.config['PHONE_NUMBER']
     }
 
 # Routes
@@ -292,7 +347,8 @@ def health_check():
         return jsonify({
             'status': 'healthy',
             'timestamp': datetime.utcnow().isoformat(),
-            'database': 'connected'
+            'database': 'connected',
+            'version': '1.0.0'
         }), 200
     except Exception as e:
         app.logger.error(f"Health check failed: {str(e)}")
@@ -318,6 +374,44 @@ def contact_messages_count():
         }), 200
     except Exception as e:
         app.logger.error(f"Error getting message count: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+@app.route('/api/contact-messages/list')
+@limiter.limit("30 per minute")
+def contact_messages_list():
+    """Get list of recent contact messages (for admin use)"""
+    try:
+        limit = request.args.get('limit', 10, type=int)
+        limit = min(limit, 100)  # Max 100 at a time
+        
+        messages = ContactMessage.query.order_by(ContactMessage.created_at.desc()).limit(limit).all()
+        
+        return jsonify({
+            'messages': [msg.to_dict() for msg in messages],
+            'total': len(messages),
+            'timestamp': datetime.utcnow().isoformat()
+        }), 200
+    except Exception as e:
+        app.logger.error(f"Error getting messages: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+@app.route('/api/contact-messages/<int:message_id>/mark-processed', methods=['POST'])
+@limiter.limit("30 per minute")
+def mark_message_processed(message_id):
+    """Mark a message as processed"""
+    try:
+        message = ContactMessage.query.get_or_404(message_id)
+        message.is_processed = True
+        db.session.commit()
+        
+        app.logger.info(f"Message {message_id} marked as processed")
+        return jsonify({
+            'success': True,
+            'message': message.to_dict(),
+            'timestamp': datetime.utcnow().isoformat()
+        }), 200
+    except Exception as e:
+        app.logger.error(f"Error marking message as processed: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500
 
 # Error handlers
@@ -365,18 +459,22 @@ def log_request_info():
 def init_app():
     """Initialize application with required setup"""
     with app.app_context():
-        db.create_all()
-        app.logger.info("Database tables created successfully")
-        
-        # Create admin user if not exists
-        # This can be expanded for admin panel later
+        try:
+            db.create_all()
+            app.logger.info("Database tables created/verified successfully")
+        except Exception as e:
+            app.logger.error(f"Error initializing database: {str(e)}")
+            raise
 
 if __name__ == '__main__':
     init_app()
-    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    debug_mode = app.config['DEBUG']
     port = int(os.environ.get('PORT', 5000))
     
-    app.logger.info(f"Starting Sally Chemtai Portfolio application on port {port}")
+    app.logger.info(f"Starting {app.config['SITE_NAME']} on port {port}")
+    app.logger.info(f"Environment: {app.config['ENV']}")
+    app.logger.info(f"Debug mode: {debug_mode}")
+    
     app.run(
         host='0.0.0.0',
         port=port,

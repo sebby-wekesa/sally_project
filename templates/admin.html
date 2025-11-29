@@ -1,0 +1,620 @@
+{% extends "base.html" %} {% block title %}Admin Dashboard - Sally Chemtai{%
+endblock %} {% block head %} {{ super() }}
+<style>
+  /* Admin-specific styles */
+  .admin-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .admin-header {
+    background: linear-gradient(135deg, #ff80f4, #18d26e);
+    color: #000;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .admin-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #000;
+  }
+
+  .admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .stat-card h3 {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ff80f4;
+    margin: 0;
+  }
+
+  .messages-section {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .messages-header {
+    background: rgba(255, 128, 244, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+  }
+
+  .messages-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .filters {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filters select,
+  .filters input {
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .filters select:hover,
+  .filters input:hover,
+  .filters select:focus,
+  .filters input:focus {
+    border-color: #ff80f4;
+    outline: none;
+  }
+
+  .messages-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .messages-table th {
+    background: rgba(255, 128, 244, 0.05);
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .messages-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .messages-table tr:hover {
+    background: rgba(255, 128, 244, 0.05);
+  }
+
+  .message-name {
+    color: #ff80f4;
+    font-weight: 600;
+  }
+
+  .message-email {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+
+  .message-subject {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+  }
+
+  .message-date {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .status-processed {
+    background: rgba(24, 210, 110, 0.2);
+    color: #18d26e;
+  }
+
+  .status-unprocessed {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 0.4rem;
+    background: #ff80f4;
+    color: #000;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-small:hover {
+    background: #ffb3ff;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    opacity: 0.5;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal.show {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #040404;
+    border: 1px solid rgba(255, 128, 244, 0.3);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(255, 128, 244, 0.2);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+  }
+
+  .modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .modal-close:hover {
+    color: #ff80f4;
+  }
+
+  .message-detail {
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-value {
+    font-size: 1rem;
+    color: #fff;
+    word-break: break-word;
+  }
+
+  .pagination {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .pagination a,
+  .pagination span {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .pagination a:hover {
+    background: rgba(255, 128, 244, 0.2);
+    border-color: #ff80f4;
+  }
+
+  .pagination .active {
+    background: #ff80f4;
+    color: #000;
+    border-color: #ff80f4;
+  }
+
+  @media (max-width: 768px) {
+    .messages-table {
+      font-size: 0.9rem;
+    }
+
+    .messages-table th,
+    .messages-table td {
+      padding: 0.75rem 0.5rem;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+
+    .btn-small {
+      width: 100%;
+    }
+  }
+</style>
+{% endblock %} {% block body %}
+<div class="admin-container">
+  <!-- Admin Header -->
+  <div class="admin-header">
+    <h1>📊 Admin Dashboard</h1>
+    <p>Manage contact form submissions and site analytics</p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="admin-stats">
+    <div class="stat-card">
+      <h3>Total Messages</h3>
+      <p class="stat-number" id="total-messages">0</p>
+    </div>
+    <div class="stat-card">
+      <h3>Unprocessed</h3>
+      <p class="stat-number" id="unprocessed-messages">0</p>
+    </div>
+    <div class="stat-card">
+      <h3>Processed</h3>
+      <p class="stat-number" id="processed-messages">0</p>
+    </div>
+  </div>
+
+  <!-- Messages Section -->
+  <div class="messages-section">
+    <div class="messages-header">
+      <h2>Contact Messages</h2>
+      <div class="filters">
+        <select id="status-filter" class="filter-select">
+          <option value="">All Messages</option>
+          <option value="processed">Processed</option>
+          <option value="unprocessed">Unprocessed</option>
+        </select>
+        <input
+          type="text"
+          id="search-filter"
+          placeholder="Search by name or email..."
+          class="filter-input"
+        />
+        <button id="refresh-btn" class="btn-small">Refresh</button>
+      </div>
+    </div>
+
+    <div id="messages-container">
+      <div class="empty-state">
+        <p>Loading messages...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Message Detail Modal -->
+<div id="message-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Message Details</h2>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div id="modal-body">
+      <!-- Message details will be inserted here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // Dashboard functionality
+  let allMessages = [];
+
+  // Load messages on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    loadStatistics();
+    loadMessages();
+    setupEventListeners();
+  });
+
+  function loadStatistics() {
+    fetch("/api/contact-messages/count")
+      .then((response) => response.json())
+      .then((data) => {
+        document.getElementById("total-messages").textContent =
+          data.total_messages;
+        document.getElementById("unprocessed-messages").textContent =
+          data.unprocessed_messages;
+        document.getElementById("processed-messages").textContent =
+          data.total_messages - data.unprocessed_messages;
+      })
+      .catch((error) => console.error("Error loading statistics:", error));
+  }
+
+  function loadMessages(limit = 50) {
+    fetch(`/api/contact-messages/list?limit=${limit}`)
+      .then((response) => response.json())
+      .then((data) => {
+        allMessages = data.messages || [];
+        renderMessages(allMessages);
+      })
+      .catch((error) => {
+        console.error("Error loading messages:", error);
+        document.getElementById("messages-container").innerHTML =
+          '<div class="empty-state"><p>Error loading messages. Please try again.</p></div>';
+      });
+  }
+
+  function renderMessages(messages) {
+    const container = document.getElementById("messages-container");
+
+    if (messages.length === 0) {
+      container.innerHTML =
+        '<div class="empty-state"><p>No messages found.</p></div>';
+      return;
+    }
+
+    let html = '<table class="messages-table">';
+    html += "<thead><tr>";
+    html += "<th>Name</th>";
+    html += "<th>Subject</th>";
+    html += "<th>Date</th>";
+    html += "<th>Status</th>";
+    html += "<th>Actions</th>";
+    html += "</tr></thead>";
+    html += "<tbody>";
+
+    messages.forEach((msg) => {
+      const date =
+        new Date(msg.created_at).toLocaleDateString() +
+        " " +
+        new Date(msg.created_at).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      const statusClass = msg.is_processed
+        ? "status-processed"
+        : "status-unprocessed";
+      const statusText = msg.is_processed ? "Processed" : "Unprocessed";
+
+      html += `<tr>
+        <td>
+          <div class="message-name">${escapeHtml(msg.name)}</div>
+          <div class="message-email">${escapeHtml(msg.email)}</div>
+        </td>
+        <td class="message-subject">${escapeHtml(msg.subject)}</td>
+        <td class="message-date">${date}</td>
+        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn-small" onclick="viewMessage(${
+              msg.id
+            })">View</button>
+            <button class="btn-small btn-secondary" onclick="markProcessed(${
+              msg.id
+            })">Mark Done</button>
+          </div>
+        </td>
+      </tr>`;
+    });
+
+    html += "</tbody></table>";
+    container.innerHTML = html;
+  }
+
+  function viewMessage(messageId) {
+    const message = allMessages.find((m) => m.id === messageId);
+    if (!message) return;
+
+    let modalBody = '<div class="message-detail">';
+    modalBody += '<div class="detail-label">Name</div>';
+    modalBody += `<div class="detail-value">${escapeHtml(message.name)}</div>`;
+    modalBody += "</div>";
+
+    modalBody += '<div class="message-detail">';
+    modalBody += '<div class="detail-label">Email</div>';
+    modalBody += `<div class="detail-value"><a href="mailto:${escapeHtml(
+      message.email
+    )}">${escapeHtml(message.email)}</a></div>`;
+    modalBody += "</div>";
+
+    modalBody += '<div class="message-detail">';
+    modalBody += '<div class="detail-label">Subject</div>';
+    modalBody += `<div class="detail-value">${escapeHtml(
+      message.subject
+    )}</div>`;
+    modalBody += "</div>";
+
+    modalBody += '<div class="message-detail">';
+    modalBody += '<div class="detail-label">Message</div>';
+    modalBody += `<div class="detail-value" style="white-space: pre-wrap;">${escapeHtml(
+      message.message
+    )}</div>`;
+    modalBody += "</div>";
+
+    modalBody += '<div class="message-detail">';
+    modalBody += '<div class="detail-label">Date</div>';
+    modalBody += `<div class="detail-value">${new Date(
+      message.created_at
+    ).toLocaleString()}</div>`;
+    modalBody += "</div>";
+
+    if (message.ip_address) {
+      modalBody += '<div class="message-detail">';
+      modalBody += '<div class="detail-label">IP Address</div>';
+      modalBody += `<div class="detail-value">${escapeHtml(
+        message.ip_address
+      )}</div>`;
+      modalBody += "</div>";
+    }
+
+    document.getElementById("modal-body").innerHTML = modalBody;
+    document.getElementById("message-modal").classList.add("show");
+  }
+
+  function closeModal() {
+    document.getElementById("message-modal").classList.remove("show");
+  }
+
+  function markProcessed(messageId) {
+    if (!confirm("Mark this message as processed?")) return;
+
+    fetch(`/api/contact-messages/${messageId}/mark-processed`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          loadStatistics();
+          loadMessages();
+          closeModal();
+          alert("Message marked as processed");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error updating message");
+      });
+  }
+
+  function setupEventListeners() {
+    document
+      .getElementById("refresh-btn")
+      .addEventListener("click", loadMessages);
+
+    document
+      .getElementById("status-filter")
+      .addEventListener("change", filterMessages);
+    document
+      .getElementById("search-filter")
+      .addEventListener("input", filterMessages);
+
+    document
+      .getElementById("message-modal")
+      .addEventListener("click", function (e) {
+        if (e.target === this) closeModal();
+      });
+  }
+
+  function filterMessages() {
+    const statusFilter = document.getElementById("status-filter").value;
+    const searchFilter = document
+      .getElementById("search-filter")
+      .value.toLowerCase();
+
+    let filtered = allMessages;
+
+    if (statusFilter) {
+      filtered = filtered.filter((m) =>
+        statusFilter === "processed" ? m.is_processed : !m.is_processed
+      );
+    }
+
+    if (searchFilter) {
+      filtered = filtered.filter(
+        (m) =>
+          m.name.toLowerCase().includes(searchFilter) ||
+          m.email.toLowerCase().includes(searchFilter)
+      );
+    }
+
+    renderMessages(filtered);
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+</script>
+{% endblock %}
